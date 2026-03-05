@@ -6,18 +6,25 @@
 /*   By: erpascua <erpascua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/04 19:36:17 by erpascua          #+#    #+#             */
-/*   Updated: 2026/03/04 19:42:37 by erpascua         ###   ########.fr       */
+/*   Updated: 2026/03/05 02:07:36 by erpascua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
 
-# include <string>
 # include <iostream>
+# include <algorithm>
+# include <stdexcept>
 
 template <typename T>
-void easyfind(T intContainer, int)
+typename T::const_iterator easyfind(T const &container, int n)
 {
-	for (int i = 0; i < intContainer)
+	typename T::const_iterator it = std::find(container.begin(), container.end(), n);
 	
+	if (it == container.end())
+		throw std::runtime_error("Value not found in container");
+
+	std::cout	<< "Found " << n << " at index "
+				<< std::distance(container.begin(), it) << std::endl;
+	return (it);
 }
