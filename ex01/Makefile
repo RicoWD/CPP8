@@ -6,7 +6,7 @@
 #    By: erpascua <erpascua@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/01/21 15:23:43 by erpascua          #+#    #+#              #
-#    Updated: 2026/03/05 15:44:10 by erpascua         ###   ########.fr        #
+#    Updated: 2026/03/06 14:21:23 by erpascua         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,7 @@ OBJ_DIR = obj
 OBJ = $(SRCS:%.cpp=$(OBJ_DIR)/%.o)
 
 CC = c++
-CFLAGS = -Wall -Wextra -Werror -I./includes -std=c++98 -g -pedantic
+CFLAGS = -Wall -Wextra -Werror -I./includes -std=c++98 -g -pedantic -Wconversion
 
 ################################################################################
 #										   									   #

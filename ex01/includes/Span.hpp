@@ -6,7 +6,7 @@
 /*   By: erpascua <erpascua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/05 13:22:09 by erpascua          #+#    #+#             */
-/*   Updated: 2026/03/06 02:28:32 by erpascua         ###   ########.fr       */
+/*   Updated: 2026/03/06 11:18:13 by erpascua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 class Span
 {
 	private:
-		unsigned int		_size;
+		unsigned int			_size;
 		std::vector<int>		_vector;
 
 	public:
