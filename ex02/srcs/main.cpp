@@ -6,14 +6,22 @@
 /*   By: erpascua <erpascua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/06 02:55:42 by erpascua          #+#    #+#             */
-/*   Updated: 2026/03/06 03:01:18 by erpascua         ###   ########.fr       */
+/*   Updated: 2026/03/06 13:14:51 by erpascua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/MutantStack.hpp"
+#include <list>
+
+void	printTitle(std::string title)
+{
+	std::cout << "=== " << title << " ===" << std::endl;
+}
 
 int main()
 {
+	// MUTANT STACK
+	printTitle("Mutant Stack");
 	MutantStack<int> mstack;
 
 	mstack.push(5);
@@ -36,5 +44,30 @@ int main()
 		++it;
 	}
 	std::stack<int> s(mstack);
+
+	// LIST
+	printTitle("List");
+	std::list<int> lst;
+
+	lst.push_back(5);
+	lst.push_back(17);
+	std::cout << lst.back() << std::endl;
+	lst.pop_back();
+	std::cout << lst.size() << std::endl;
+	lst.push_back(3);
+	lst.push_back(5);
+	lst.push_back(737);
+	lst.push_back(0);
+
+	std::list<int>::iterator itLst = lst.begin();
+	std::list<int>::iterator iteLst = lst.end();
+	++itLst;
+	--itLst;
+	while (itLst != iteLst)
+	{
+		std::cout << *itLst << std::endl;
+		++itLst;
+	}
+	std::list<int> sLst(lst);
 	return 0;
 }
