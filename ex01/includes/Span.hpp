@@ -6,7 +6,7 @@
 /*   By: erpascua <erpascua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/05 13:22:09 by erpascua          #+#    #+#             */
-/*   Updated: 2026/03/05 20:38:26 by erpascua         ###   ########.fr       */
+/*   Updated: 2026/03/06 02:28:32 by erpascua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,11 @@
 
 # include <string>
 # include <vector>
+# include <algorithm>
+# include <numeric>
 # include <exception>
 # include <iostream>
-// # include <iomanip>
+# include <iomanip>
 
 class Span
 {
@@ -26,7 +28,8 @@ class Span
 
 	public:
 		// OCF
-		Span(const int size);
+		Span();
+		Span(unsigned int size);
 		Span(const Span& cpy);
 		Span& operator=(const Span& cpy);
 		~Span();
@@ -40,11 +43,12 @@ class Span
 		template <typename T>
 		void	addNumber(T begin, T end)
 		{
-			for (T it = begin; it != end; it++)
-				_vector.push_back(*it);
+			if (_vector.size() + (size_t)std::distance(begin, end) > _size)
+				throw SpanFullException();
+			_vector.insert(_vector.end(), begin, end);
 		}
 
 		// Exception
 		class SpanFullException: public std::exception { public: virtual const char* what() const throw(); };
-		class OverflowRangeException: public std::exception { public: virtual const char* what() const throw();}
+		class NotEnoughNumbersException: public std::exception { public: virtual const char* what() const throw(); };
 };

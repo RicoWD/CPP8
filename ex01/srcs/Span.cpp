@@ -6,7 +6,7 @@
 /*   By: erpascua <erpascua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/05 15:41:14 by erpascua          #+#    #+#             */
-/*   Updated: 2026/03/05 20:43:44 by erpascua         ###   ########.fr       */
+/*   Updated: 2026/03/06 02:50:44 by erpascua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,9 @@
 //																	 		  //
 /* ************************************************************************** */
 
-Span::Span(const int size): _size(size) {};
-Span::Span(const Span& cpy): _size(cpy._size), _vector(cpy._vector) {};
+Span::Span(): _size(0) {}
+Span::Span(unsigned int size): _size(size) {}
+Span::Span(const Span& cpy): _size(cpy._size), _vector(cpy._vector) {}
 Span& Span::operator=(const Span& cpy)
 {
 	if (this != &cpy)
@@ -29,7 +30,7 @@ Span& Span::operator=(const Span& cpy)
 	}
 	return (*this);
 }
-Span::~Span() {};
+Span::~Span() {}
 
 /* ************************************************************************** */
 // 																			  //
@@ -43,11 +44,28 @@ void		Span::addNumber(int n)
 		throw SpanFullException();
 
 	_vector.push_back(n);
-};
+}
 
-int		shortestSpan()
+int		Span::shortestSpan()
 {
-	return (_vector)
+	if (_vector.size() < 2)
+		throw NotEnoughNumbersException();
+
+	std::vector<int> sorted(_vector);
+	std::sort(sorted.begin(), sorted.end());
+
+	// adjacent_difference calcule sorted[i] - sorted[i-1] pour chaque element
+	// le premier element de sorted est copie tel quel (index 0), on le saute
+	std::adjacent_difference(sorted.begin(), sorted.end(), sorted.begin());
+	return (*std::min_element(sorted.begin() + 1, sorted.end()));
+}
+
+int		Span::longestSpan()
+{
+	if (_vector.size() < 2)
+		throw NotEnoughNumbersException();
+
+	return (*std::max_element(_vector.begin(), _vector.end()) - *std::min_element(_vector.begin(), _vector.end()));
 }
 
 /* ************************************************************************** */
@@ -61,13 +79,7 @@ const char* Span::SpanFullException::what() const throw()
 	return ("Span Full Exception");
 }
 
-const char* Span::OverflowRangeException::what() const throw()
+const char* Span::NotEnoughNumbersException::what() const throw()
 {
-	return ("Overflow Range Exception");
+	return ("Not Enough Numbers Exception");
 }
-
-// span plein
-// span oofrrange 
-// maxsize
-// empty array
-// less than 2 nbs for shortesSpan

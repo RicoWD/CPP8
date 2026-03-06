@@ -6,17 +6,24 @@
 /*   By: erpascua <erpascua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/05 13:29:20 by erpascua          #+#    #+#             */
-/*   Updated: 2026/03/05 13:30:08 by erpascua         ###   ########.fr       */
+/*   Updated: 2026/03/06 02:38:51 by erpascua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/Span.hpp"
+#include <cstdlib>
+
+void printTitle(const std::string& title)
+{
+	std::cout << "\n=== " << title << " ===" << std::endl;
+}
 
 int	main(void)
 {
-	Span	sp;
-
-	sp = Span(5);
+	// Given by subject
+	printTitle("Subject Test");
+	Span sp = Span(5);
+	
 	sp.addNumber(6);
 	sp.addNumber(3);
 	sp.addNumber(17);
@@ -25,5 +32,34 @@ int	main(void)
 	
 	std::cout << sp.shortestSpan() << std::endl;
 	std::cout << sp.longestSpan() << std::endl;
-	return 0
+
+	// addNumber by range
+	printTitle("Range Test (10000 numbers)");
+	Span big = Span(10000);
+	std::vector<int> v;
+	
+	for (int i = 0; i < 10000; i++)
+		v.push_back(std::rand());
+	big.addNumber(v.begin(), v.end());
+	std::cout << "shortestSpan: " << big.shortestSpan() << std::endl;
+	std::cout << "longestSpan:  " << big.longestSpan() << std::endl;
+
+	// Exceptions
+	printTitle("Exception Tests");
+	try { sp.addNumber(42); }
+	catch (std::exception &e) { std::cerr << e.what() << std::endl; }
+
+	Span tiny = Span(1);
+	tiny.addNumber(7);
+	try { std::cout << tiny.shortestSpan() << std::endl; }
+	catch (std::exception &e) { std::cerr << e.what() << std::endl; }
+
+	try
+	{
+		std::vector<int> overflow(5, 0);
+		tiny.addNumber(overflow.begin(), overflow.end());
+	}
+	catch (std::exception &e) { std::cerr << e.what() << std::endl; }
+
+	return 0;
 }
